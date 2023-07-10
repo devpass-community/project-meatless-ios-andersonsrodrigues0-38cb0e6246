@@ -1,0 +1,19 @@
+name: Evercode checks
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Select Xcode
+        run: sudo xcode-select -switch /Applications/Xcode_14.1.app && /usr/bin/xcodebuild -version
+
+      - name: Evercode checks
+        run: xcodebuild -scheme MeatlessApp -project MeatlessApp.xcodeproj -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=16.1'
