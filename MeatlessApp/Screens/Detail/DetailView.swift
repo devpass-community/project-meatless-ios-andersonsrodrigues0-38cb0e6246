@@ -13,7 +13,7 @@ class DetailView: UIView {
     weak var delegate: DetailViewDelegate?
     
     private let cellIdentifier = "MenuCellIdentifier"
-    private var restaurant: Restaurant!
+    private var restaurant: Restaurant?
 
     let headerView: HeaderView = {
 
@@ -101,12 +101,16 @@ extension DetailView: UITableViewDataSource {
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return 10
+        return restaurant?.menu.count ?? 0
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! MenuCellView
+        
+        if let menu = restaurant?.menu[indexPath.row] {
+            cell.updateView(menuItem: menu)
+        }
         
         return cell
     }
