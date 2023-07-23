@@ -44,8 +44,7 @@ final class ListViewController: UIViewController {
 extension ListViewController: ListViewDelegate {
     
     func didTapRestaurant(restaurant: Restaurant) {
-        
-        // STORY 3: Implement a push navigation to DetailViewController.
-
+        let detailVC = DetailViewController(restaurant: restaurant)
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }
