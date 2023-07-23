@@ -8,6 +8,10 @@ struct Restaurant: Decodable {
     let openDays: String
     let image: String
     let menu: Array<MenuItem>
+    
+    var info: String {
+        "\(distance) - \(openDays)"
+    }
 }
 
 struct MenuItem: Decodable {
