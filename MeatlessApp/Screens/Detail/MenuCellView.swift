@@ -4,7 +4,9 @@ import UIKit
 
 class MenuCellView: UITableViewCell {
     
-   private var mainStackView: UIStackView = {
+    private var qtdOfItem = 0
+    
+    private var mainStackView: UIStackView = {
        let stack = UIStackView(frame: .zero)
        stack.translatesAutoresizingMaskIntoConstraints = false
        stack.spacing = 16
@@ -62,6 +64,7 @@ class MenuCellView: UITableViewCell {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "icon-minus"), for: .normal)
+        button.addTarget(self, action: #selector(decreaseQuantity), for: .touchUpInside)
         return button
     }()
     
@@ -70,6 +73,7 @@ class MenuCellView: UITableViewCell {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "icon-plus"), for: .normal)
+        button.addTarget(self, action: #selector(increaseQuantity), for: .touchUpInside)
         return button
     }()
     
@@ -78,7 +82,7 @@ class MenuCellView: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .gray
         label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.text = "0"
+        label.text = String(qtdOfItem)
         return label
     }()
     
@@ -141,5 +145,28 @@ private extension MenuCellView {
             labelsStackView.topAnchor.constraint(equalTo: mainStackView.topAnchor, constant: 16),
             labelsStackView.bottomAnchor.constraint(equalTo: mainStackView.bottomAnchor, constant: -16)
         ])
+    }
+}
+
+// MARK: Button Actions
+private extension MenuCellView {
+    @objc
+    func increaseQuantity() {
+        guard qtdOfItem < 99 else { return }
+        
+        qtdOfItem += 1
+        updateQuantity()
+    }
+    
+    @objc
+    func decreaseQuantity() {
+        guard qtdOfItem > 0 else { return }
+        
+        qtdOfItem -= 1
+        updateQuantity()
+    }
+    
+    func updateQuantity() {
+        quantityLabel.text = String(qtdOfItem)
     }
 }
