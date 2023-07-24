@@ -5,6 +5,7 @@ final class ConfirmationViewController: UIViewController {
     private lazy var confirmationView: ConfirmationView = {
 
         let view = ConfirmationView()
+        view.delegate = self
         return view
     }()
     
@@ -13,12 +14,11 @@ final class ConfirmationViewController: UIViewController {
     override func loadView() {
         self.view = confirmationView
     }
+}
 
-    override func viewDidLoad() {
-
-    }
+extension ConfirmationViewController: ConfirmationViewDelegate {
     
-    override func viewDidAppear(_ animated: Bool) {
-        
+    func didPressBackButton() {
+        dismiss(animated: true)
     }
 }

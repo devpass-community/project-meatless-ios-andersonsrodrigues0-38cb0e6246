@@ -31,6 +31,7 @@ extension DetailViewController: DetailViewDelegate {
     func didPressSendOrderButton() {
         
         // STORY 6: Implement a modal navigation to ConfigurationViewController.
-
+        let confirmationVC = ConfirmationViewController()
+        present(confirmationVC, animated: true)
     }
 }
